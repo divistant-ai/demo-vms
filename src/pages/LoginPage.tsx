@@ -26,16 +26,30 @@ export function LoginPage() {
     await new Promise(resolve => setTimeout(resolve, 1000))
     
     // For demo purposes, always succeed
+    const userId = '1'
+    const tenantId = 'tenant-demo-001'
+    
     localStorage.setItem('user', JSON.stringify({
-      id: '1',
+      id: userId,
       email: formData.email,
       name: formData.fullName || 'Demo User',
       role: 'Administrator',
       company: formData.company || 'VisionCore'
     }))
     
+    // Set tenant context
+    localStorage.setItem('currentTenantId', tenantId)
+    localStorage.setItem('currentUserId', userId)
+    
     setIsLoading(false)
-    navigate('/')
+    
+    // Check if user has completed onboarding
+    const hasOnboarded = localStorage.getItem('onboarding')
+    if (!hasOnboarded) {
+      navigate('/onboarding')
+    } else {
+      navigate('/')
+    }
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

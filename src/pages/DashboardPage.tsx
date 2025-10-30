@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Heading } from '../components/catalyst/heading'
 import { Badge } from '../components/catalyst/badge'
@@ -9,6 +9,7 @@ import { alertApi } from '../services/api/alertApi'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
 import { LoadingState, EmptyState } from '../utils/loadingStates'
 import { useRealtimeData } from '../hooks/useRealtimeData'
+import { DynamicDashboard } from '../components/dashboard/DynamicDashboard'
 
 // AI Insights Icons
 function BrainIcon() {
@@ -251,9 +252,32 @@ const getAIRecommendations = (useCase: string) => {
 
 export function DashboardPage() {
   const [selectedUseCase, setSelectedUseCase] = useState<'traffic' | 'flood' | 'crowd' | 'security' | 'safety' | 'stevedoring' | 'vessel-maintenance' | 'stockpile' | 'fleet-tracking'>('traffic')
+  const [useDynamicDashboard, setUseDynamicDashboard] = useState(false)
+  
+  // Check if user has industry profile
+  useEffect(() => {
+    const industryProfile = localStorage.getItem('industryProfile')
+    if (industryProfile) {
+      setUseDynamicDashboard(true)
+    }
+  }, [])
   
   // Realtime data streaming - data mengalir tanpa reload
   const realtimeData = useRealtimeData()
+  
+  // Toggle between dynamic and default dashboard
+  if (useDynamicDashboard) {
+    return (
+      <div>
+        <div className="flex justify-end mb-4">
+          <Button color="zinc" onClick={() => setUseDynamicDashboard(false)}>
+            Switch to Default Dashboard
+          </Button>
+        </div>
+        <DynamicDashboard />
+      </div>
+    )
+  }
 
   // const { data: overview } = useQuery({
   //   queryKey: ['analytics', 'overview'],

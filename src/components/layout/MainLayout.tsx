@@ -16,6 +16,7 @@ import { Text } from '../catalyst/text'
 import { Badge } from '../catalyst/badge'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTheme } from '../../hooks/useTheme'
+import { useTenant } from '../../hooks/useTenant'
 import { GlobalSearch } from '../GlobalSearch'
 
 function DashboardIcon() {
@@ -99,6 +100,23 @@ function ReportIcon() {
   )
 }
 
+function OrganizationIcon() {
+  return (
+    <svg data-slot="icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true">
+      <path d="M3 5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5Z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M7 8h6M7 12h4M10 3v14" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function IndustryIcon() {
+  return (
+    <svg data-slot="icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true">
+      <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
 function BellIcon() {
   return (
     <svg data-slot="icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true">
@@ -153,6 +171,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
   const location = useLocation()
   const navigate = useNavigate()
   const { isDarkMode, toggleTheme } = useTheme()
+  const { tenant } = useTenant()
   const [showNotifications, setShowNotifications] = useState(false)
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [showLogoutDialog, setShowLogoutDialog] = useState(false)
@@ -236,12 +255,25 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
       <SidebarHeader className={sidebarCollapsed ? 'px-2' : ''}>
         <div className={`flex items-center gap-x-3 ${sidebarCollapsed ? 'justify-center' : 'px-2'}`}>
           <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center flex-shrink-0">
-            <span className="text-white font-bold text-sm">VC</span>
+            <span className="text-white font-bold text-sm">
+              {tenant?.name.substring(0, 2).toUpperCase() || 'VC'}
+            </span>
           </div>
           {!sidebarCollapsed && (
             <div className="flex flex-col min-w-0">
-              <span className="text-sm font-semibold text-zinc-950 dark:text-white truncate">VisionCore</span>
-              <span className="text-xs text-zinc-500 dark:text-zinc-400 truncate">Intelligent Vision</span>
+              <span className="text-sm font-semibold text-zinc-950 dark:text-white truncate">
+                {tenant?.name || 'VisionCore'}
+              </span>
+              <div className="flex items-center gap-1">
+                <span className="text-xs text-zinc-500 dark:text-zinc-400 truncate">
+                  {tenant?.subscription?.tier ? 
+                    tenant.subscription.tier.replace('_', ' ').charAt(0).toUpperCase() + tenant.subscription.tier.replace('_', ' ').slice(1) 
+                    : 'Free'}
+                </span>
+                {tenant?.subscription?.status === 'active' && (
+                  <span className="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                )}
+              </div>
             </div>
           )}
         </div>
@@ -301,6 +333,36 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
             <ReportIcon />
             {!sidebarCollapsed && <SidebarLabel>Reports</SidebarLabel>}
           </SidebarItem>
+          <SidebarItem href="/tenant/settings" current={location.pathname.startsWith('/tenant')}>
+            <OrganizationIcon />
+            {!sidebarCollapsed && <SidebarLabel>Organization</SidebarLabel>}
+          </SidebarItem>
+          <SidebarItem href="/industry/profile" current={location.pathname === '/industry/profile'}>
+            <IndustryIcon />
+            {!sidebarCollapsed && <SidebarLabel>Industry Profile</SidebarLabel>}
+          </SidebarItem>
+          {!sidebarCollapsed && location.pathname.startsWith('/industry') && (
+            <>
+              <SidebarItem href="/industry/templates" current={location.pathname === '/industry/templates'} className="pl-12">
+                <SidebarLabel className="text-sm">Templates</SidebarLabel>
+              </SidebarItem>
+              <SidebarItem href="/industry/models" current={location.pathname === '/industry/models'} className="pl-12">
+                <SidebarLabel className="text-sm">AI Models</SidebarLabel>
+              </SidebarItem>
+              <SidebarItem href="/industry/integrations" current={location.pathname === '/industry/integrations'} className="pl-12">
+                <SidebarLabel className="text-sm">Integrations</SidebarLabel>
+              </SidebarItem>
+              <SidebarItem href="/industry/compliance" current={location.pathname === '/industry/compliance'} className="pl-12">
+                <SidebarLabel className="text-sm">Compliance</SidebarLabel>
+              </SidebarItem>
+              <SidebarItem href="/industry/benchmarks" current={location.pathname === '/industry/benchmarks'} className="pl-12">
+                <SidebarLabel className="text-sm">Benchmarks</SidebarLabel>
+              </SidebarItem>
+              <SidebarItem href="/industry/branding" current={location.pathname === '/industry/branding'} className="pl-12">
+                <SidebarLabel className="text-sm">White-Label</SidebarLabel>
+              </SidebarItem>
+            </>
+          )}
         </SidebarSection>
       </SidebarBody>
       <SidebarFooter>

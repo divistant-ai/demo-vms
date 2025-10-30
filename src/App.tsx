@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ThemeProvider } from './contexts/ThemeContext'
+import { TenantProvider } from './contexts/TenantContext'
 import { MainLayout } from './components/layout/MainLayout'
 import { LoadingState } from './utils/loadingStates'
 
@@ -9,6 +10,7 @@ import { LoadingState } from './utils/loadingStates'
 import { LoginPage } from './pages/LoginPage'
 import { DashboardPage } from './pages/DashboardPage'
 import { ThemeTestPage } from './pages/ThemeTestPage'
+import { OnboardingPage } from './pages/OnboardingPage'
 
 // Lazy load all other pages
 const CamerasPage = lazy(() => import('./pages/CamerasPage').then(m => ({ default: m.CamerasPage })))
@@ -26,6 +28,14 @@ const ModelsPage = lazy(() => import('./pages/ModelsPage').then(m => ({ default:
 const ProfilePage = lazy(() => import('./pages/ProfilePage').then(m => ({ default: m.ProfilePage })))
 const AIInsightPage = lazy(() => import('./pages/AIInsightPage').then(m => ({ default: m.AIInsightPage })))
 const ReportsPage = lazy(() => import('./pages/ReportsPage').then(m => ({ default: m.ReportsPage })))
+const TenantSettingsPage = lazy(() => import('./pages/TenantSettingsPage').then(m => ({ default: m.TenantSettingsPage })))
+const IndustryProfilePage = lazy(() => import('./pages/IndustryProfilePage').then(m => ({ default: m.IndustryProfilePage })))
+const IndustryTemplatesPage = lazy(() => import('./pages/IndustryTemplatesPage').then(m => ({ default: m.IndustryTemplatesPage })))
+const AIModelsMarketplacePage = lazy(() => import('./pages/AIModelsMarketplacePage').then(m => ({ default: m.AIModelsMarketplacePage })))
+const IntegrationMarketplacePage = lazy(() => import('./pages/IntegrationMarketplacePage').then(m => ({ default: m.IntegrationMarketplacePage })))
+const ComplianceReportsPage = lazy(() => import('./pages/ComplianceReportsPage').then(m => ({ default: m.ComplianceReportsPage })))
+const IndustryBenchmarksPage = lazy(() => import('./pages/IndustryBenchmarksPage').then(m => ({ default: m.IndustryBenchmarksPage })))
+const WhiteLabelPage = lazy(() => import('./pages/WhiteLabelPage').then(m => ({ default: m.WhiteLabelPage })))
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -55,6 +65,7 @@ function AppRoutes() {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/onboarding" element={<OnboardingPage />} />
       <Route path="/theme-test" element={<ThemeTestPage />} />
       <Route
         path="/"
@@ -216,6 +227,86 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/tenant/settings"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <TenantSettingsPage />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/industry/profile"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <IndustryProfilePage />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/industry/templates"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <IndustryTemplatesPage />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/industry/models"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <AIModelsMarketplacePage />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/industry/integrations"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <IntegrationMarketplacePage />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/industry/compliance"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <ComplianceReportsPage />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/industry/benchmarks"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <IndustryBenchmarksPage />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/industry/branding"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <WhiteLabelPage />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
@@ -225,9 +316,11 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
+        <TenantProvider>
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </TenantProvider>
       </ThemeProvider>
     </QueryClientProvider>
   )
