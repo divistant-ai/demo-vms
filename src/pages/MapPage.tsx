@@ -4,6 +4,7 @@ import { Heading } from '../components/catalyst/heading'
 import { cameraApi } from '../services/api/cameraApi'
 import { LoadingState } from '../utils/loadingStates'
 import { useNavigate } from 'react-router-dom'
+import { useRealtimeData } from '../hooks/useRealtimeData'
 
 // Simple Map Filters
 function MapFilters({ onFilterChange, filters }: {
@@ -66,11 +67,18 @@ export function MapPage() {
   const [heatmapData, setHeatmapData] = useState<any>(null)
   const [showMetricsPanel, setShowMetricsPanel] = useState(false)
   const navigate = useNavigate()
+  
+  // Realtime data streaming
+  const realtimeData = useRealtimeData()
 
   const { data: cameras = [], isLoading, isError, error } = useQuery({
     queryKey: ['cameras'],
     queryFn: () => cameraApi.getAll(),
+    initialData: realtimeData.cameras,
   })
+  
+  // Use realtime cameras for display
+  const displayCameras = realtimeData.cameras || cameras
 
   const generateCameraHeatmap = (camera: any) => {
     const cameraName = camera.name.toLowerCase()
@@ -217,7 +225,7 @@ export function MapPage() {
   }
 
   // Filter cameras based on selected use case
-  const filteredCameras = filters.useCase === 'all' ? cameras : cameras.filter((camera: any) => {
+  const filteredCameras = filters.useCase === 'all' ? displayCameras : displayCameras.filter((camera: any) => {
     const name = camera.name.toLowerCase()
     const useCase = filters.useCase
     

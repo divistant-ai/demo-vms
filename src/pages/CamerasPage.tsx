@@ -12,6 +12,7 @@ import { cameraApi } from '../services/api/cameraApi'
 import { LoadingState } from '../utils/loadingStates'
 import type { Camera } from '../types/camera'
 import { format } from 'date-fns'
+import { useRealtimeData } from '../hooks/useRealtimeData'
 
 interface CameraMetrics {
   type: string
@@ -563,10 +564,17 @@ export function CamerasPage() {
   const [typeFilter, setTypeFilter] = useState<string>('all')
   const [searchQuery, setSearchQuery] = useState('')
   
+  // Realtime data streaming - data mengalir tanpa reload
+  const realtimeData = useRealtimeData()
+  
   const { data: cameras, isLoading } = useQuery({
     queryKey: ['cameras'],
     queryFn: () => cameraApi.getAll(),
+    initialData: realtimeData.cameras,
   })
+  
+  // Use realtime cameras for display
+  const displayCameras = realtimeData.cameras || cameras
 
   const handleCameraClick = (camera: Camera) => {
     setSelectedCamera(camera)
@@ -574,7 +582,7 @@ export function CamerasPage() {
   }
 
   // Filter cameras based on selected filters
-  const filteredCameras = cameras?.filter(camera => {
+  const filteredCameras = displayCameras?.filter(camera => {
     const matchesStatus = statusFilter === 'all' || camera.status === statusFilter
     const matchesType = typeFilter === 'all' || camera.activeScenarios?.some(scenario => 
       scenario.toLowerCase().includes(typeFilter.toLowerCase())
@@ -588,7 +596,7 @@ export function CamerasPage() {
 
   // Get unique camera types for filter
   const cameraTypes = Array.from(new Set(
-    cameras?.flatMap(camera => 
+    displayCameras?.flatMap(camera => 
       camera.activeScenarios?.map(scenario => {
         if (scenario.includes('traffic')) return 'Traffic'
         if (scenario.includes('flood')) return 'Flood'

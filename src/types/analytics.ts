@@ -23,6 +23,7 @@ export type TimeSeriesData = {
   flood_alerts: number
   intrusions: number
   total: number
+  _lastAddTime?: number
 }
 
 export type DistributionData = {
@@ -39,5 +40,6 @@ export type HeatmapPoint = {
   lng: number
   intensity: number
 }
+
 
 

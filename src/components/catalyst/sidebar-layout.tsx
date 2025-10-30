@@ -54,7 +54,7 @@ export function SidebarLayout({
   sidebar: React.ReactNode
   sidebarCollapsed?: boolean
 }>) {
-  let [showSidebar, setShowSidebar] = useState(false)
+  const [showSidebar, setShowSidebar] = useState(false)
 
   const desktopSidebarWidth = sidebarCollapsed ? 'lg:w-16' : 'lg:w-64'
   const contentPaddingLeft = sidebarCollapsed ? 'lg:pl-20' : 'lg:pl-64'

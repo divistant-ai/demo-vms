@@ -15,7 +15,7 @@ import { Button } from '../catalyst/button'
 import { Text } from '../catalyst/text'
 import { Badge } from '../catalyst/badge'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useTheme } from '../../contexts/ThemeContext'
+import { useTheme } from '../../hooks/useTheme'
 import { GlobalSearch } from '../GlobalSearch'
 
 function DashboardIcon() {
@@ -156,7 +156,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
   const [showNotifications, setShowNotifications] = useState(false)
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [showLogoutDialog, setShowLogoutDialog] = useState(false)
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<{ name: string; role: string } | null>(null)
   const [notifications, setNotifications] = useState([
     {
       id: '1',

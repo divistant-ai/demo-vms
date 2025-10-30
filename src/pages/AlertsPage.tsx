@@ -62,9 +62,10 @@ export function AlertsPage() {
   const [newAlerts, setNewAlerts] = useState<Array<Alert>>([])
 
   useEffect(() => {
-    const ws = createMockWebSocket('ws://mock-vms.local/ws')
+    const ws = createMockWebSocket()
     
-    ws.addEventListener('message', (event: { data: string }) => {
+    ws.addEventListener('message', (data: unknown) => {
+      const event = data as { data: string }
       const alert: Alert = JSON.parse(event.data)
       setNewAlerts((prev) => [...prev, alert])
       // Refetch alerts list

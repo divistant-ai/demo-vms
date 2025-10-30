@@ -14,7 +14,7 @@ export const analyticsApi = {
     return mockAnalyticsOverview
   },
 
-  getTimeSeries: async (_days: number = 1): Promise<Array<TimeSeriesData>> => {
+  getTimeSeries: async (_days?: number): Promise<Array<TimeSeriesData>> => {
     await delay(400)
     return mockTimeSeriesData
   },

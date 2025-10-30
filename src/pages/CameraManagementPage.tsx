@@ -12,6 +12,7 @@ import { Checkbox } from '../components/catalyst/checkbox'
 import { cameraApi } from '../services/api/cameraApi'
 import { LoadingState, EmptyState } from '../utils/loadingStates'
 import type { Camera } from '../types/camera'
+import { useRealtimeData } from '../hooks/useRealtimeData'
 
 export function CameraManagementPage() {
   const [showAddDialog, setShowAddDialog] = useState(false)
@@ -33,13 +34,20 @@ export function CameraManagementPage() {
     streamUrl: '',
     scenarios: [] as string[]
   })
+  
+  // Realtime data streaming
+  const realtimeData = useRealtimeData()
 
   const { data: cameras, isLoading } = useQuery({
     queryKey: ['cameras'],
     queryFn: () => cameraApi.getAll(),
+    initialData: realtimeData.cameras,
   })
+  
+  // Use realtime cameras for display
+  const displayCameras = realtimeData.cameras || cameras
 
-  const filteredCameras = cameras?.filter((camera) => {
+  const filteredCameras = displayCameras?.filter((camera) => {
     if (filters.search && !camera.name.toLowerCase().includes(filters.search.toLowerCase()) &&
         !camera.location.address.toLowerCase().includes(filters.search.toLowerCase())) {
       return false

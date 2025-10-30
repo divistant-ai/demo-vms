@@ -22,7 +22,7 @@ export type Camera = {
   status: CameraStatus
   lastSeen: Date
   activeScenarios: Array<string>
-  metadata: Record<string, any>
+  metadata?: Record<string, unknown>
 }
 
 

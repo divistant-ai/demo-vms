@@ -17,6 +17,7 @@ import { incidentApi } from '../services/api/incidentApi'
 import { format } from 'date-fns'
 import { LoadingState, EmptyState } from '../utils/loadingStates'
 import { exportIncidentsToCSV } from '../utils/exportUtils'
+import { useRealtimeData } from '../hooks/useRealtimeData'
 
 function getSeverityColor(severity: string) {
   switch (severity) {
@@ -58,11 +59,18 @@ export function IncidentsPage() {
   const [showCreateDialog, setShowCreateDialog] = useState(false)
 
   const { savedFilters, saveFilter, loadFilter, deleteFilter } = useSavedFilters()
+  
+  // Realtime data streaming - data mengalir tanpa reload
+  const realtimeData = useRealtimeData()
 
   const { data: incidents, isLoading } = useQuery({
     queryKey: ['incidents'],
     queryFn: () => incidentApi.getAll(),
+    initialData: realtimeData.incidents,
   })
+  
+  // Use realtime incidents for display
+  const displayIncidents = realtimeData.incidents || incidents
 
   const handleCreateIncident = () => {
     setShowCreateDialog(true)
@@ -73,7 +81,7 @@ export function IncidentsPage() {
     setShowCreateDialog(false)
   }
 
-  const filteredIncidents = incidents?.filter((incident) => {
+  const filteredIncidents = displayIncidents?.filter((incident) => {
     if (filters.search && !incident.location.toLowerCase().includes(filters.search.toLowerCase()) &&
         !incident.description.toLowerCase().includes(filters.search.toLowerCase())) {
       return false

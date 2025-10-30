@@ -1,7 +1,7 @@
 import type { Alert } from '../../types/alert'
 
 class MockWebSocket {
-  private listeners: Record<string, Array<(data: any) => void>> = {}
+  private listeners: Record<string, Array<(data: unknown) => void>> = {}
   private intervalId: number | null = null
   private isConnected = false
 
@@ -42,20 +42,20 @@ class MockWebSocket {
     }
   }
 
-  private emit(event: string, data: any) {
+  private emit(event: string, data: unknown) {
     if (this.listeners[event]) {
       this.listeners[event].forEach((listener) => listener(data))
     }
   }
 
-  addEventListener(event: string, handler: (data: any) => void) {
+  addEventListener(event: string, handler: (data: unknown) => void) {
     if (!this.listeners[event]) {
       this.listeners[event] = []
     }
     this.listeners[event].push(handler)
   }
 
-  removeEventListener(event: string, handler: (data: any) => void) {
+  removeEventListener(event: string, handler: (data: unknown) => void) {
     if (this.listeners[event]) {
       this.listeners[event] = this.listeners[event].filter((h) => h !== handler)
     }
@@ -74,8 +74,8 @@ class MockWebSocket {
   }
 }
 
-export function createMockWebSocket(url: string): MockWebSocket {
-  return new MockWebSocket(url)
+export const createMockWebSocket = (_onMessage?: (data: unknown) => void): MockWebSocket => {
+  return new MockWebSocket('')
 }
 
 export { MockWebSocket }

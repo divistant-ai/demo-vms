@@ -12,7 +12,7 @@ export type DetectionType =
 
 export type IncidentSeverity = 'low' | 'medium' | 'high' | 'critical'
 
-export type IncidentStatus = 'open' | 'acknowledged' | 'assigned' | 'in_progress' | 'closed'
+export type IncidentStatus = 'open' | 'acknowledged' | 'assigned' | 'in_progress' | 'closed' | 'resolved'
 
 export type Annotation = {
   id: string

@@ -8,6 +8,7 @@ import { analyticsApi } from '../services/api/analyticsApi'
 import { alertApi } from '../services/api/alertApi'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
 import { LoadingState, EmptyState } from '../utils/loadingStates'
+import { useRealtimeData } from '../hooks/useRealtimeData'
 
 // AI Insights Icons
 function BrainIcon() {
@@ -250,6 +251,9 @@ const getAIRecommendations = (useCase: string) => {
 
 export function DashboardPage() {
   const [selectedUseCase, setSelectedUseCase] = useState<'traffic' | 'flood' | 'crowd' | 'security' | 'safety' | 'stevedoring' | 'vessel-maintenance' | 'stockpile' | 'fleet-tracking'>('traffic')
+  
+  // Realtime data streaming - data mengalir tanpa reload
+  const realtimeData = useRealtimeData()
 
   // const { data: overview } = useQuery({
   //   queryKey: ['analytics', 'overview'],
@@ -259,6 +263,7 @@ export function DashboardPage() {
   const { data: timeSeries, isLoading: timeSeriesLoading } = useQuery({
     queryKey: ['analytics', 'timeseries'],
     queryFn: () => analyticsApi.getTimeSeries(1),
+    initialData: realtimeData.analytics.timeSeries,
   })
 
   const { data: distribution, isLoading: distributionLoading } = useQuery({
@@ -270,6 +275,9 @@ export function DashboardPage() {
     queryKey: ['alerts'],
     queryFn: () => alertApi.getAll(),
   })
+  
+  // Use realtime data for display
+  const displayTimeSeries = realtimeData.analytics.timeSeries || timeSeries
 
   // const { data: cameras } = useQuery({
   //   queryKey: ['cameras'],
@@ -631,9 +639,9 @@ export function DashboardPage() {
               </Heading>
               {timeSeriesLoading ? (
                 <div className="mt-4 h-64 flex items-center justify-center text-gray-500">Loading chart...</div>
-              ) : timeSeries ? (
+              ) : displayTimeSeries ? (
                 <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={timeSeries.map(item => ({
+                  <LineChart data={displayTimeSeries.map(item => ({
                     time: new Date(item.timestamp).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
                     traffic: item.traffic_incidents,
                     flood: item.flood_alerts,

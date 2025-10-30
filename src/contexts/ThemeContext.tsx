@@ -1,4 +1,5 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
+import { createContext, useEffect, useState, type ReactNode } from 'react'
+import { THEME_STORAGE_KEY, USER_PREFERENCE_STORAGE_KEY, DEFAULT_THEME } from '../constants/theme'
 
 type Theme = 'light' | 'dark'
 
@@ -9,7 +10,7 @@ interface ThemeContextType {
   setTheme: (theme: Theme) => void
 }
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
+export const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('light')
@@ -17,10 +18,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   // Load theme from localStorage on mount
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') as Theme
+    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) as Theme
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
     const shouldBeDark = savedTheme === 'dark' || (!savedTheme && prefersDark)
-    const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light')
+    const initialTheme = savedTheme || (prefersDark ? 'dark' : DEFAULT_THEME)
     
     console.log('[ThemeContext] Initial load:', { savedTheme, prefersDark, initialTheme })
     
@@ -45,12 +46,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     
     setThemeState(newTheme)
     setIsDarkMode(newTheme === 'dark')
-    localStorage.setItem('theme', newTheme)
+    localStorage.setItem(THEME_STORAGE_KEY, newTheme)
     
     console.log('[ThemeContext] State updated, localStorage saved')
     
     // Update user preferences if user is logged in
-    const userData = localStorage.getItem('user')
+    const userData = localStorage.getItem(USER_PREFERENCE_STORAGE_KEY)
     if (userData) {
       try {
         const user = JSON.parse(userData)
@@ -61,7 +62,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
             theme: newTheme
           }
         }
-        localStorage.setItem('user', JSON.stringify(updatedUser))
+        localStorage.setItem(USER_PREFERENCE_STORAGE_KEY, JSON.stringify(updatedUser))
         console.log('[ThemeContext] User preferences updated')
       } catch (error) {
         console.error('[ThemeContext] Error updating user preferences:', error)
@@ -94,10 +95,4 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   )
 }
 
-export function useTheme() {
-  const context = useContext(ThemeContext)
-  if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider')
-  }
-  return context
-}
+// useTheme has been moved to src/hooks/useTheme.ts

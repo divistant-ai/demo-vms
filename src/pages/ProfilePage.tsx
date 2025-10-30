@@ -8,7 +8,7 @@ import { Select } from '../components/catalyst/select'
 import { Textarea } from '../components/catalyst/textarea'
 import { Dialog, DialogTitle, DialogBody, DialogActions } from '../components/catalyst/dialog'
 import { Checkbox } from '../components/catalyst/checkbox'
-import { useTheme } from '../contexts/ThemeContext'
+import { useTheme } from '../hooks/useTheme'
 
 export function ProfilePage() {
   const [showEditDialog, setShowEditDialog] = useState(false)

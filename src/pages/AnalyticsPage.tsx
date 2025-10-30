@@ -9,6 +9,7 @@ import { ResponsiveContainer, LineChart, Line, BarChart, Bar, XAxis, YAxis, Cart
 import { format } from 'date-fns'
 import { cameraApi } from '../services/api/cameraApi'
 import { LoadingState } from '../utils/loadingStates'
+import { useRealtimeData } from '../hooks/useRealtimeData'
 
 export function AnalyticsPage() {
   const [filters, setFilters] = useState({
@@ -18,10 +19,14 @@ export function AnalyticsPage() {
     camera: 'all',
     useCase: 'traffic',
   })
+  
+  // Realtime data streaming - data mengalir tanpa reload
+  const realtimeData = useRealtimeData()
 
   const { data: timeSeries, isLoading: timeSeriesLoading } = useQuery({
     queryKey: ['analytics', 'timeseries'],
     queryFn: () => analyticsApi.getTimeSeries(7),
+    initialData: realtimeData.analytics.timeSeries,
   })
 
   const { data: distribution, isLoading: distributionLoading } = useQuery({
@@ -37,7 +42,11 @@ export function AnalyticsPage() {
   const { data: cameras } = useQuery({
     queryKey: ['cameras'],
     queryFn: () => cameraApi.getAll(),
+    initialData: realtimeData.cameras,
   })
+  
+  // Use realtime data for display
+  const displayTimeSeries = realtimeData.analytics.timeSeries || timeSeries
 
   const handleExport = () => {
     // Export analytics data to CSV
@@ -166,10 +175,10 @@ export function AnalyticsPage() {
           <div className="mt-4">
             <LoadingState message="Loading chart data..." />
           </div>
-        ) : timeSeries ? (
+        ) : displayTimeSeries ? (
           <ResponsiveContainer width="100%" height={400}>
-            <LineChart data={timeSeries.map(item => ({
-              date: format(new Date(item.timestamp), 'MMM dd'),
+            <LineChart data={displayTimeSeries.map(item => ({
+              date: format(new Date(item.timestamp), 'MMM dd HH:mm'),
               traffic: item.traffic_incidents,
               flood: item.flood_alerts,
               intrusions: item.intrusions,

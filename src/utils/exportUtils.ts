@@ -4,11 +4,7 @@ import type { Alert } from '../types/alert'
 /**
  * Export data to CSV format
  */
-export function exportToCSV<T extends Record<string, any>>(
-  data: Array<T>,
-  filename: string,
-  headers?: Record<string, string>
-) {
+export const exportToCSV = (data: Array<Record<string, unknown>>, filename: string, headers?: Record<string, string>): void => {
   if (data.length === 0) {
     alert('No data to export')
     return
@@ -164,7 +160,7 @@ export function exportToPDF(
 export function exportAnalyticsReport(
   title: string,
   data: {
-    summary: Record<string, any>
+    summary: Record<string, unknown>
     charts?: Array<{ title: string; description: string }>
   }
 ) {

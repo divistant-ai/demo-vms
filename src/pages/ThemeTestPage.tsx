@@ -1,4 +1,4 @@
-import { useTheme } from '../contexts/ThemeContext'
+import { useTheme } from '../hooks/useTheme'
 
 export function ThemeTestPage() {
   const { theme, isDarkMode, toggleTheme } = useTheme()
