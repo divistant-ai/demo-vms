@@ -1,0 +1,232 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - navigation [ref=e5]:
+      - generic [ref=e7]:
+        - generic [ref=e9]: VC
+        - generic [ref=e10]:
+          - generic [ref=e11]: VisionCore
+          - generic [ref=e13]: Free
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - link "Dashboard" [active] [ref=e18] [cursor=pointer]:
+            - /url: /
+            - img [ref=e19]
+            - generic [ref=e24]: Dashboard
+          - link "Live Cameras" [ref=e26] [cursor=pointer]:
+            - /url: /cameras
+            - img [ref=e27]
+            - generic [ref=e30]: Live Cameras
+          - link "Map View" [ref=e32] [cursor=pointer]:
+            - /url: /map
+            - img [ref=e33]
+            - generic [ref=e36]: Map View
+        - generic [ref=e37]:
+          - link "Analytics" [ref=e39] [cursor=pointer]:
+            - /url: /analytics
+            - img [ref=e40]
+            - generic [ref=e43]: Analytics
+          - link "AI Insights" [ref=e45] [cursor=pointer]:
+            - /url: /ai-insights
+            - img [ref=e46]
+            - generic [ref=e48]: AI Insights
+          - link "AI Models" [ref=e50] [cursor=pointer]:
+            - /url: /models
+            - img [ref=e51]
+            - generic [ref=e53]: AI Models
+        - generic [ref=e54]:
+          - link "Incidents" [ref=e56] [cursor=pointer]:
+            - /url: /incidents
+            - img [ref=e57]
+            - generic [ref=e60]: Incidents
+          - link "Alerts" [ref=e62] [cursor=pointer]:
+            - /url: /alerts
+            - img [ref=e63]
+            - generic [ref=e65]: Alerts
+        - generic [ref=e66]:
+          - link "Configuration" [ref=e68] [cursor=pointer]:
+            - /url: /configuration
+            - img [ref=e69]
+            - generic [ref=e72]: Configuration
+          - link "Reports" [ref=e74] [cursor=pointer]:
+            - /url: /reports
+            - img [ref=e75]
+            - generic [ref=e78]: Reports
+          - link "Organization" [ref=e80] [cursor=pointer]:
+            - /url: /tenant/settings
+            - img [ref=e81]
+            - generic [ref=e84]: Organization
+          - link "Industry Profile" [ref=e86] [cursor=pointer]:
+            - /url: /industry/profile
+            - img [ref=e87]
+            - generic [ref=e89]: Industry Profile
+      - link "Profile" [ref=e93] [cursor=pointer]:
+        - /url: /profile
+        - img [ref=e94]
+        - generic [ref=e97]: Profile
+    - main [ref=e98]:
+      - generic [ref=e104]:
+        - generic [ref=e106]:
+          - generic [ref=e107]:
+            - heading "Traffic Monitoring Dashboard" [level=1] [ref=e108]
+            - paragraph [ref=e109]: Real-time traffic flow analysis and congestion monitoring
+          - generic [ref=e110]:
+            - generic [ref=e111]: Select Use Case
+            - combobox [ref=e112]:
+              - option "Traffic Monitoring" [selected]
+              - option "Flood Detection"
+              - option "Crowd Detection"
+              - option "Security Monitoring"
+              - option "Safety Monitoring & HSE"
+              - option "Stevedoring Operations"
+              - option "Vessel Maintenance"
+              - option "Stockpile & Conveyor"
+              - option "Fleet Tracking"
+        - generic [ref=e113]:
+          - generic [ref=e114]:
+            - generic [ref=e115]: Vehicle Count
+            - generic [ref=e116]:
+              - generic [ref=e117]: 1,247vehicles
+              - generic [ref=e118]: +12%
+          - generic [ref=e119]:
+            - generic [ref=e120]: Avg Speed
+            - generic [ref=e121]:
+              - generic [ref=e122]: 32.5km/h
+              - generic [ref=e123]: "-3%"
+          - generic [ref=e124]:
+            - generic [ref=e125]: Congestion Level
+            - generic [ref=e126]:
+              - generic [ref=e127]: Medium
+              - generic [ref=e128]: +5%
+          - generic [ref=e129]:
+            - generic [ref=e130]: Flow Rate
+            - generic [ref=e131]:
+              - generic [ref=e132]: 2,156veh/h
+              - generic [ref=e133]: +8%
+        - generic [ref=e134]:
+          - generic [ref=e135]:
+            - generic [ref=e136]:
+              - img [ref=e138]
+              - generic [ref=e140]:
+                - heading "AI Insights & Recommendations" [level=2] [ref=e141]
+                - paragraph [ref=e142]: Smart analysis and actionable recommendations for your traffic monitoring
+            - button "View All Insights" [ref=e143]
+          - generic [ref=e144]:
+            - generic [ref=e145]:
+              - heading "Smart Recommendations" [level=3] [ref=e146]:
+                - img [ref=e147]
+                - text: Smart Recommendations
+              - generic [ref=e149]:
+                - generic [ref=e150]:
+                  - img [ref=e152]
+                  - generic [ref=e154]:
+                    - generic [ref=e155]: Optimize Traffic Light Timing
+                    - generic [ref=e156]: Adjust signal timing at Main Street intersection to reduce congestion by 15%
+                    - generic [ref=e157]:
+                      - generic [ref=e158]: high priority
+                      - paragraph [ref=e159]: High impact on traffic flow
+                - generic [ref=e160]:
+                  - img [ref=e162]
+                  - generic [ref=e164]:
+                    - generic [ref=e165]: Add Lane Markings
+                    - generic [ref=e166]: Install clear lane markings to improve traffic organization
+                    - generic [ref=e167]:
+                      - generic [ref=e168]: medium priority
+                      - paragraph [ref=e169]: Medium impact on safety
+                - generic [ref=e170]:
+                  - img [ref=e172]
+                  - generic [ref=e174]:
+                    - generic [ref=e175]: Monitor Rush Hour Patterns
+                    - generic [ref=e176]: Current patterns show 20% increase in morning traffic
+                    - generic [ref=e177]:
+                      - generic [ref=e178]: low priority
+                      - paragraph [ref=e179]: Low impact on operations
+            - generic [ref=e180]:
+              - heading "AI Analytics" [level=3] [ref=e181]:
+                - img [ref=e182]
+                - text: AI Analytics
+              - generic [ref=e184]:
+                - generic [ref=e185]:
+                  - generic [ref=e186]:
+                    - paragraph [ref=e187]: Model Performance
+                    - generic [ref=e188]: Excellent
+                  - generic [ref=e190]:
+                    - generic [ref=e191]: Accuracy
+                    - generic [ref=e192]: 94.2%
+                - generic [ref=e195]:
+                  - paragraph [ref=e196]: Trend Analysis
+                  - generic [ref=e197]:
+                    - generic [ref=e198]:
+                      - generic [ref=e199]: Peak Activity
+                      - generic [ref=e200]: 2:00 PM - 4:00 PM
+                    - generic [ref=e201]:
+                      - generic [ref=e202]: Predicted Risk
+                      - generic [ref=e203]: Low
+                    - generic [ref=e204]:
+                      - generic [ref=e205]: Anomaly Score
+                      - generic [ref=e206]: "0.12"
+                - generic [ref=e207]:
+                  - paragraph [ref=e208]: Quick Actions
+                  - generic [ref=e209]:
+                    - button "Apply Recommendations" [ref=e210]:
+                      - img [ref=e211]
+                      - generic [ref=e213]: Apply Recommendations
+                    - button "View Detailed Analysis" [ref=e214]:
+                      - img [ref=e215]
+                      - generic [ref=e217]: View Detailed Analysis
+                    - button "Generate Report" [ref=e218]:
+                      - img [ref=e219]
+                      - generic [ref=e221]: Generate Report
+        - generic [ref=e222]:
+          - heading "Recent Alerts" [level=2] [ref=e223]
+          - generic [ref=e224]:
+            - generic [ref=e225]:
+              - generic [ref=e226]:
+                - generic [ref=e227]: high
+                - generic [ref=e228]:
+                  - generic [ref=e229]: Traffic congestion detected at Downtown Intersection
+                  - generic [ref=e230]: 10/30/2025, 7:11:05 PM
+              - generic [ref=e231]: Acknowledged
+            - generic [ref=e233]:
+              - generic [ref=e234]: critical
+              - generic [ref=e235]:
+                - generic [ref=e236]: Flood level critical at River Bridge
+                - generic [ref=e237]: 10/30/2025, 6:41:05 PM
+            - generic [ref=e239]:
+              - generic [ref=e240]: medium
+              - generic [ref=e241]:
+                - generic [ref=e242]: Unauthorized entry detected at Shopping Mall Entrance
+                - generic [ref=e243]: 10/30/2025, 7:26:05 PM
+        - generic [ref=e244]:
+          - generic [ref=e245]:
+            - heading "Incidents Over Time (24h)" [level=2] [ref=e246]
+            - generic [ref=e248]:
+              - list [ref=e250]:
+                - listitem [ref=e251]:
+                  - img "Flood legend icon" [ref=e252]
+                  - text: Flood
+                - listitem [ref=e254]:
+                  - img "Intrusions legend icon" [ref=e255]
+                  - text: Intrusions
+                - listitem [ref=e257]:
+                  - img "Traffic legend icon" [ref=e258]
+                  - text: Traffic
+              - application [ref=e260]:
+                - generic [ref=e265]:
+                  - generic [ref=e267]: 11:41 PM
+                  - generic [ref=e269]: 05:41 AM
+                  - generic [ref=e271]: 11:41 AM
+                  - generic [ref=e273]: 07:41 PM
+                - generic [ref=e275]:
+                  - generic [ref=e277]: "0"
+                  - generic [ref=e279]: "15"
+                  - generic [ref=e281]: "30"
+                  - generic [ref=e283]: "45"
+                  - generic [ref=e285]: "60"
+          - generic [ref=e367]:
+            - heading "Incident Distribution" [level=2] [ref=e368]
+            - application [ref=e371]
+  - generic [ref=e384]: "0"
+```

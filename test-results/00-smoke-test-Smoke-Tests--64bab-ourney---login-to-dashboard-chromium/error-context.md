@@ -1,0 +1,46 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e4]:
+  - generic [ref=e6]:
+    - generic [ref=e8]: "1"
+    - generic [ref=e11]: "2"
+    - generic [ref=e14]: "3"
+    - generic [ref=e17]: "4"
+    - generic [ref=e20]: "5"
+  - generic [ref=e21]:
+    - generic [ref=e22]:
+      - heading "Tell us about your organization" [level=1] [ref=e23]
+      - paragraph [ref=e24]: This helps us recommend the right plan and features
+    - generic [ref=e26]:
+      - generic [ref=e27]:
+        - generic [ref=e28]: Organization Size
+        - generic [ref=e29]:
+          - button "👤 Individual" [ref=e30]:
+            - generic [ref=e31]: 👤
+            - paragraph [ref=e32]: Individual
+          - button "👥 Small (1-10)" [ref=e33]:
+            - generic [ref=e34]: 👥
+            - paragraph [ref=e35]: Small (1-10)
+          - button "👨‍👩‍👧‍👦 Medium (11-50)" [ref=e36]:
+            - generic [ref=e37]: 👨‍👩‍👧‍👦
+            - paragraph [ref=e38]: Medium (11-50)
+          - button "🏢 Large (51-200)" [ref=e39]:
+            - generic [ref=e40]: 🏢
+            - paragraph [ref=e41]: Large (51-200)
+          - button "🏛️ Enterprise (200+)" [ref=e42]:
+            - generic [ref=e43]: 🏛️
+            - paragraph [ref=e44]: Enterprise (200+)
+      - generic [ref=e45]:
+        - generic [ref=e46]: Number of Locations
+        - spinbutton [ref=e47]: "1"
+      - generic [ref=e48]:
+        - generic [ref=e49]: Estimated Number of Cameras
+        - spinbutton [ref=e50]: "5"
+      - generic [ref=e51]:
+        - generic [ref=e52]: Number of Users
+        - spinbutton [ref=e53]: "3"
+    - generic [ref=e54]:
+      - button "Back" [ref=e55]
+      - button "Continue" [ref=e56]
+```
