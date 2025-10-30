@@ -264,6 +264,23 @@ export function DashboardPage() {
   
   // Realtime data streaming - data mengalir tanpa reload
   const realtimeData = useRealtimeData()
+
+  // IMPORTANT: All hooks must be called before any conditional returns
+  const { data: timeSeries, isLoading: timeSeriesLoading } = useQuery({
+    queryKey: ['analytics', 'timeseries'],
+    queryFn: () => analyticsApi.getTimeSeries(),
+    initialData: realtimeData.analytics.timeSeries,
+  })
+
+  const { data: distribution, isLoading: distributionLoading } = useQuery({
+    queryKey: ['analytics', 'distribution'],
+    queryFn: () => analyticsApi.getDistribution(),
+  })
+
+  const { data: alerts, isLoading: alertsLoading } = useQuery({
+    queryKey: ['alerts'],
+    queryFn: () => alertApi.getAll(),
+  })
   
   // Toggle between dynamic and default dashboard
   if (useDynamicDashboard) {
@@ -278,27 +295,6 @@ export function DashboardPage() {
       </div>
     )
   }
-
-  // const { data: overview } = useQuery({
-  //   queryKey: ['analytics', 'overview'],
-  //   queryFn: () => analyticsApi.getOverview(),
-  // })
-
-  const { data: timeSeries, isLoading: timeSeriesLoading } = useQuery({
-    queryKey: ['analytics', 'timeseries'],
-    queryFn: () => analyticsApi.getTimeSeries(1),
-    initialData: realtimeData.analytics.timeSeries,
-  })
-
-  const { data: distribution, isLoading: distributionLoading } = useQuery({
-    queryKey: ['analytics', 'distribution'],
-    queryFn: () => analyticsApi.getDistribution(),
-  })
-
-  const { data: alerts, isLoading: alertsLoading } = useQuery({
-    queryKey: ['alerts'],
-    queryFn: () => alertApi.getAll(),
-  })
   
   // Use realtime data for display
   const displayTimeSeries = realtimeData.analytics.timeSeries || timeSeries
