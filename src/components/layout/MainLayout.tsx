@@ -433,19 +433,17 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
           )}
         </NavbarItem>
         <Dropdown>
-          <DropdownButton as={NavbarItem} className="hidden sm:flex">
-            <div className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
-                <UserIcon />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-sm font-medium text-zinc-950 dark:text-white">
-                  {user?.name || 'Admin User'}
-                </span>
-                <span className="text-xs text-zinc-500 dark:text-zinc-400">
-                  {user?.role || 'Administrator'}
-                </span>
-              </div>
+          <DropdownButton className="hidden sm:flex items-center gap-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg px-2 py-1 transition-colors">
+            <div className="h-8 w-8 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+              <UserIcon />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-sm font-medium text-zinc-950 dark:text-white">
+                {user?.name || 'Admin User'}
+              </span>
+              <span className="text-xs text-zinc-500 dark:text-zinc-400">
+                {user?.role || 'Administrator'}
+              </span>
             </div>
           </DropdownButton>
           <DropdownMenu className="min-w-64" anchor="bottom end">
