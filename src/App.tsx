@@ -25,6 +25,8 @@ const ScenarioBuilderPage = lazy(() => import('./pages/ScenarioBuilderPage').the
 const UserManagementPage = lazy(() => import('./pages/UserManagementPage').then(m => ({ default: m.UserManagementPage })))
 const CameraManagementPage = lazy(() => import('./pages/CameraManagementPage').then(m => ({ default: m.CameraManagementPage })))
 const ModelsPage = lazy(() => import('./pages/ModelsPage').then(m => ({ default: m.ModelsPage })))
+const AuditLogsPage = lazy(() => import('./pages/AuditLogsPage').then(m => ({ default: m.AuditLogsPage })))
+const ScenariosPage = lazy(() => import('./pages/ScenariosPage').then(m => ({ default: m.ScenariosPage })))
 const ProfilePage = lazy(() => import('./pages/ProfilePage').then(m => ({ default: m.ProfilePage })))
 const AIInsightPage = lazy(() => import('./pages/AIInsightPage').then(m => ({ default: m.AIInsightPage })))
 const ReportsPage = lazy(() => import('./pages/ReportsPage').then(m => ({ default: m.ReportsPage })))
@@ -178,6 +180,16 @@ function AppRoutes() {
         }
       />
       <Route
+        path="/users"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <UserManagementPage />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/configuration/cameras"
         element={
           <ProtectedRoute>
@@ -193,6 +205,26 @@ function AppRoutes() {
           <ProtectedRoute>
             <MainLayout>
               <ModelsPage />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/scenarios"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <ScenariosPage />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/audit-logs"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <AuditLogsPage />
             </MainLayout>
           </ProtectedRoute>
         }

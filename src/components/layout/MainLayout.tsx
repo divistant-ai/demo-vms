@@ -103,15 +103,6 @@ function ReportIcon() {
   )
 }
 
-function OrganizationIcon() {
-  return (
-    <svg data-slot="icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true">
-      <path d="M3 5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5Z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M7 8h6M7 12h4M10 3v14" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
 function IndustryIcon() {
   return (
     <svg data-slot="icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true">
@@ -368,40 +359,25 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
 
         {!sidebarCollapsed && <SidebarDivider />}
 
-        {/* Configuration Section */}
+        {/* AI & Automation Section */}
         <SidebarSection>
-          {!sidebarCollapsed && <SidebarHeading>Configuration</SidebarHeading>}
-          <SidebarItem href="/configuration" current={location.pathname.startsWith('/configuration')}>
-            <SettingsIcon />
-            {!sidebarCollapsed && <SidebarLabel>System Settings</SidebarLabel>}
-          </SidebarItem>
+          {!sidebarCollapsed && <SidebarHeading>AI & Automation</SidebarHeading>}
           <SidebarItem href="/models" current={location.pathname.startsWith('/models')}>
             <AIIcon />
             {!sidebarCollapsed && <SidebarLabel>AI Models</SidebarLabel>}
           </SidebarItem>
-        </SidebarSection>
-
-        {!sidebarCollapsed && <SidebarDivider />}
-
-        {/* Administration Section */}
-        <SidebarSection>
-          {!sidebarCollapsed && <SidebarHeading>Administration</SidebarHeading>}
-          <SidebarItem href="/tenant/settings" current={location.pathname.startsWith('/tenant')}>
-            <OrganizationIcon />
-            {!sidebarCollapsed && <SidebarLabel>Organization</SidebarLabel>}
+          <SidebarItem href="/scenarios" current={location.pathname.startsWith('/scenarios')}>
+            <SettingsIcon />
+            {!sidebarCollapsed && <SidebarLabel>Scenarios</SidebarLabel>}
           </SidebarItem>
         </SidebarSection>
 
-        {/* Industry Section (Conditional) */}
+        {/* Industry Features (Conditional) */}
         {tenant?.metadata?.industry && (
           <>
             {!sidebarCollapsed && <SidebarDivider />}
             <SidebarSection>
               {!sidebarCollapsed && <SidebarHeading>Industry</SidebarHeading>}
-              <SidebarItem href="/industry/profile" current={location.pathname === '/industry/profile'}>
-                <IndustryIcon />
-                {!sidebarCollapsed && <SidebarLabel>Industry Profile</SidebarLabel>}
-              </SidebarItem>
               <SidebarItem href="/industry/templates" current={location.pathname === '/industry/templates'}>
                 <IndustryIcon />
                 {!sidebarCollapsed && <SidebarLabel>Templates</SidebarLabel>}
@@ -409,6 +385,14 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
               <SidebarItem href="/industry/benchmarks" current={location.pathname === '/industry/benchmarks'}>
                 <ChartIcon />
                 {!sidebarCollapsed && <SidebarLabel>Benchmarks</SidebarLabel>}
+              </SidebarItem>
+              <SidebarItem href="/industry/models" current={location.pathname === '/industry/models'}>
+                <AIIcon />
+                {!sidebarCollapsed && <SidebarLabel>AI Marketplace</SidebarLabel>}
+              </SidebarItem>
+              <SidebarItem href="/industry/integrations" current={location.pathname === '/industry/integrations'}>
+                <SettingsIcon />
+                {!sidebarCollapsed && <SidebarLabel>Integrations</SidebarLabel>}
               </SidebarItem>
             </SidebarSection>
           </>
@@ -447,7 +431,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
             </DropdownItem>
             <DropdownItem href="/configuration">
               <CogIcon />
-              <span>Settings</span>
+              <span>System Settings</span>
             </DropdownItem>
             <DropdownItem href="/tenant/settings">
               <BuildingIcon />
@@ -459,6 +443,14 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                 <span>Industry Profile</span>
               </DropdownItem>
             )}
+            <DropdownItem href="/users">
+              <UserIcon />
+              <span>User Management</span>
+            </DropdownItem>
+            <DropdownItem href="/audit-logs">
+              <ReportIcon />
+              <span>Audit Logs</span>
+            </DropdownItem>
             <DropdownItem onClick={() => setShowLogoutDialog(true)}>
               <LogoutIcon />
               <span>Sign Out</span>
