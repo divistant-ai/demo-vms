@@ -8,6 +8,8 @@ import {
   SidebarItem,
   SidebarLabel,
   SidebarFooter,
+  SidebarHeading,
+  SidebarDivider,
 } from '../catalyst/sidebar'
 import { useState, useEffect } from 'react'
 import { Dialog, DialogTitle, DialogBody, DialogActions } from '../catalyst/dialog'
@@ -306,12 +308,20 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
         </div>
       </SidebarHeader>
       <SidebarBody>
-        {/* Main Navigation */}
+        {/* Overview Section */}
         <SidebarSection>
+          {!sidebarCollapsed && <SidebarHeading>Overview</SidebarHeading>}
           <SidebarItem href="/" current={location.pathname === '/'}>
             <DashboardIcon />
             {!sidebarCollapsed && <SidebarLabel>Dashboard</SidebarLabel>}
           </SidebarItem>
+        </SidebarSection>
+
+        {!sidebarCollapsed && <SidebarDivider />}
+
+        {/* Monitoring Section */}
+        <SidebarSection>
+          {!sidebarCollapsed && <SidebarHeading>Monitoring</SidebarHeading>}
           <SidebarItem href="/cameras" current={location.pathname.startsWith('/cameras')}>
             <CameraIcon />
             {!sidebarCollapsed && <SidebarLabel>Live Cameras</SidebarLabel>}
@@ -322,15 +332,48 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
           </SidebarItem>
         </SidebarSection>
 
-        {/* Analytics & Intelligence */}
+        {!sidebarCollapsed && <SidebarDivider />}
+
+        {/* Analytics Section */}
         <SidebarSection>
+          {!sidebarCollapsed && <SidebarHeading>Analytics</SidebarHeading>}
           <SidebarItem href="/analytics" current={location.pathname.startsWith('/analytics')}>
             <ChartIcon />
             {!sidebarCollapsed && <SidebarLabel>Analytics</SidebarLabel>}
           </SidebarItem>
+          <SidebarItem href="/reports" current={location.pathname.startsWith('/reports')}>
+            <ReportIcon />
+            {!sidebarCollapsed && <SidebarLabel>Reports</SidebarLabel>}
+          </SidebarItem>
           <SidebarItem href="/ai-insights" current={location.pathname.startsWith('/ai-insights')}>
             <AIIcon />
             {!sidebarCollapsed && <SidebarLabel>AI Insights</SidebarLabel>}
+          </SidebarItem>
+        </SidebarSection>
+
+        {!sidebarCollapsed && <SidebarDivider />}
+
+        {/* Alerts & Incidents Section */}
+        <SidebarSection>
+          {!sidebarCollapsed && <SidebarHeading>Alerts</SidebarHeading>}
+          <SidebarItem href="/alerts" current={location.pathname.startsWith('/alerts')}>
+            <AlertIcon />
+            {!sidebarCollapsed && <SidebarLabel>Alerts</SidebarLabel>}
+          </SidebarItem>
+          <SidebarItem href="/incidents" current={location.pathname.startsWith('/incidents')}>
+            <IncidentIcon />
+            {!sidebarCollapsed && <SidebarLabel>Incidents</SidebarLabel>}
+          </SidebarItem>
+        </SidebarSection>
+
+        {!sidebarCollapsed && <SidebarDivider />}
+
+        {/* Configuration Section */}
+        <SidebarSection>
+          {!sidebarCollapsed && <SidebarHeading>Configuration</SidebarHeading>}
+          <SidebarItem href="/configuration" current={location.pathname.startsWith('/configuration')}>
+            <SettingsIcon />
+            {!sidebarCollapsed && <SidebarLabel>System Settings</SidebarLabel>}
           </SidebarItem>
           <SidebarItem href="/models" current={location.pathname.startsWith('/models')}>
             <AIIcon />
@@ -338,59 +381,38 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
           </SidebarItem>
         </SidebarSection>
 
-        {/* Operations & Monitoring */}
-        <SidebarSection>
-          <SidebarItem href="/incidents" current={location.pathname.startsWith('/incidents')}>
-            <IncidentIcon />
-            {!sidebarCollapsed && <SidebarLabel>Incidents</SidebarLabel>}
-          </SidebarItem>
-          <SidebarItem href="/alerts" current={location.pathname.startsWith('/alerts')}>
-            <AlertIcon />
-            {!sidebarCollapsed && <SidebarLabel>Alerts</SidebarLabel>}
-          </SidebarItem>
-        </SidebarSection>
+        {!sidebarCollapsed && <SidebarDivider />}
 
-        {/* Administration */}
+        {/* Administration Section */}
         <SidebarSection>
-          <SidebarItem href="/configuration" current={location.pathname.startsWith('/configuration')}>
-            <SettingsIcon />
-            {!sidebarCollapsed && <SidebarLabel>Configuration</SidebarLabel>}
-          </SidebarItem>
-          <SidebarItem href="/reports" current={location.pathname.startsWith('/reports')}>
-            <ReportIcon />
-            {!sidebarCollapsed && <SidebarLabel>Reports</SidebarLabel>}
-          </SidebarItem>
+          {!sidebarCollapsed && <SidebarHeading>Administration</SidebarHeading>}
           <SidebarItem href="/tenant/settings" current={location.pathname.startsWith('/tenant')}>
             <OrganizationIcon />
             {!sidebarCollapsed && <SidebarLabel>Organization</SidebarLabel>}
           </SidebarItem>
-          <SidebarItem href="/industry/profile" current={location.pathname === '/industry/profile'}>
-            <IndustryIcon />
-            {!sidebarCollapsed && <SidebarLabel>Industry Profile</SidebarLabel>}
-          </SidebarItem>
-          {!sidebarCollapsed && location.pathname.startsWith('/industry') && (
-            <>
-              <SidebarItem href="/industry/templates" current={location.pathname === '/industry/templates'} className="pl-12">
-                <SidebarLabel className="text-sm">Templates</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="/industry/models" current={location.pathname === '/industry/models'} className="pl-12">
-                <SidebarLabel className="text-sm">AI Models</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="/industry/integrations" current={location.pathname === '/industry/integrations'} className="pl-12">
-                <SidebarLabel className="text-sm">Integrations</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="/industry/compliance" current={location.pathname === '/industry/compliance'} className="pl-12">
-                <SidebarLabel className="text-sm">Compliance</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="/industry/benchmarks" current={location.pathname === '/industry/benchmarks'} className="pl-12">
-                <SidebarLabel className="text-sm">Benchmarks</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="/industry/branding" current={location.pathname === '/industry/branding'} className="pl-12">
-                <SidebarLabel className="text-sm">White-Label</SidebarLabel>
-              </SidebarItem>
-            </>
-          )}
         </SidebarSection>
+
+        {/* Industry Section (Conditional) */}
+        {tenant?.metadata?.industry && (
+          <>
+            {!sidebarCollapsed && <SidebarDivider />}
+            <SidebarSection>
+              {!sidebarCollapsed && <SidebarHeading>Industry</SidebarHeading>}
+              <SidebarItem href="/industry/profile" current={location.pathname === '/industry/profile'}>
+                <IndustryIcon />
+                {!sidebarCollapsed && <SidebarLabel>Industry Profile</SidebarLabel>}
+              </SidebarItem>
+              <SidebarItem href="/industry/templates" current={location.pathname === '/industry/templates'}>
+                <IndustryIcon />
+                {!sidebarCollapsed && <SidebarLabel>Templates</SidebarLabel>}
+              </SidebarItem>
+              <SidebarItem href="/industry/benchmarks" current={location.pathname === '/industry/benchmarks'}>
+                <ChartIcon />
+                {!sidebarCollapsed && <SidebarLabel>Benchmarks</SidebarLabel>}
+              </SidebarItem>
+            </SidebarSection>
+          </>
+        )}
       </SidebarBody>
       <SidebarFooter>
         <SidebarSection>
