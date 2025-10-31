@@ -204,7 +204,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
   const [showNotifications, setShowNotifications] = useState(false)
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [showLogoutDialog, setShowLogoutDialog] = useState(false)
-  const [user, setUser] = useState<{ name: string; role: string } | null>(null)
+  const [user, setUser] = useState<{ name: string; role: string; email?: string } | null>(null)
   const [notifications, setNotifications] = useState([
     {
       id: '1',
@@ -414,13 +414,57 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
           </>
         )}
       </SidebarBody>
-      <SidebarFooter>
-        <SidebarSection>
-          <SidebarItem href="/profile">
-            <UserIcon />
-            {!sidebarCollapsed && <SidebarLabel>Profile</SidebarLabel>}
-          </SidebarItem>
-        </SidebarSection>
+      <SidebarFooter className="max-lg:hidden">
+        <Dropdown>
+          <DropdownButton as={SidebarItem}>
+            <span className="flex min-w-0 items-center gap-3">
+              <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center flex-shrink-0">
+                <span className="text-white font-bold text-sm">
+                  {user?.name?.substring(0, 2).toUpperCase() || 'AU'}
+                </span>
+              </div>
+              {!sidebarCollapsed && (
+                <span className="min-w-0">
+                  <span className="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">
+                    {user?.name || 'Admin User'}
+                  </span>
+                  <span className="block truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">
+                    {user?.email || 'admin@vms.com'}
+                  </span>
+                </span>
+              )}
+            </span>
+            {!sidebarCollapsed && (
+              <svg data-slot="icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" className="size-4">
+                <path fillRule="evenodd" d="M11.78 9.78a.75.75 0 0 1-1.06 0L8 7.06 5.28 9.78a.75.75 0 0 1-1.06-1.06l3.25-3.25a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06Z" clipRule="evenodd" />
+              </svg>
+            )}
+          </DropdownButton>
+          <DropdownMenu className="min-w-64" anchor="top start">
+            <DropdownItem href="/profile">
+              <UserIcon />
+              <span>My Profile</span>
+            </DropdownItem>
+            <DropdownItem href="/configuration">
+              <CogIcon />
+              <span>Settings</span>
+            </DropdownItem>
+            <DropdownItem href="/tenant/settings">
+              <BuildingIcon />
+              <span>Organization</span>
+            </DropdownItem>
+            {tenant?.metadata?.industry && (
+              <DropdownItem href="/industry/profile">
+                <IndustryIcon />
+                <span>Industry Profile</span>
+              </DropdownItem>
+            )}
+            <DropdownItem onClick={() => setShowLogoutDialog(true)}>
+              <LogoutIcon />
+              <span>Sign Out</span>
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
       </SidebarFooter>
     </Sidebar>
   )
@@ -454,39 +498,6 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
             </span>
           )}
         </NavbarItem>
-        <Dropdown>
-          <DropdownButton className="hidden sm:flex items-center gap-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg px-2 py-1 transition-colors">
-            <div className="h-8 w-8 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
-              <UserIcon />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-sm font-medium text-zinc-950 dark:text-white">
-                {user?.name || 'Admin User'}
-              </span>
-              <span className="text-xs text-zinc-500 dark:text-zinc-400">
-                {user?.role || 'Administrator'}
-              </span>
-            </div>
-          </DropdownButton>
-          <DropdownMenu className="min-w-64" anchor="bottom end">
-            <DropdownItem href="/profile">
-              <UserIcon />
-              <span>My Profile</span>
-            </DropdownItem>
-            <DropdownItem href="/configuration">
-              <CogIcon />
-              <span>Settings</span>
-            </DropdownItem>
-            <DropdownItem href="/tenant/settings">
-              <BuildingIcon />
-              <span>Organization</span>
-            </DropdownItem>
-            <DropdownItem onClick={() => setShowLogoutDialog(true)}>
-              <LogoutIcon />
-              <span>Logout</span>
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
       </NavbarSection>
     </Navbar>
   )
