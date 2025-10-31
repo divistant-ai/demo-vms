@@ -327,15 +327,13 @@ export function AIModelsMarketplacePage() {
         </div>
         <div className="flex gap-2 flex-wrap">
           {['all', 'installed', 'Detection', 'Recognition', 'Analysis', 'Safety', 'Tracking'].map(f => (
-            filter !== f ? (
-              <Button key={f} plain onClick={() => setFilter(f)}>
-                {f === 'all' ? 'All' : f === 'installed' ? 'Installed' : f}
-              </Button>
-            ) : (
-              <Button key={f} onClick={() => setFilter(f)}>
-                {f === 'all' ? 'All' : f === 'installed' ? 'Installed' : f}
-              </Button>
-            )
+            <Button 
+              key={f} 
+              color={filter === f ? 'blue' : 'zinc'}
+              onClick={() => setFilter(f)}
+            >
+              {f === 'all' ? 'All' : f === 'installed' ? 'Installed' : f}
+            </Button>
           ))}
         </div>
       </div>

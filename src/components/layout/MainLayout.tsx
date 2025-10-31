@@ -386,14 +386,6 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                 <ChartIcon />
                 {!sidebarCollapsed && <SidebarLabel>Benchmarks</SidebarLabel>}
               </SidebarItem>
-              <SidebarItem href="/industry/compliance" current={location.pathname === '/industry/compliance'}>
-                <ReportIcon />
-                {!sidebarCollapsed && <SidebarLabel>Compliance</SidebarLabel>}
-              </SidebarItem>
-              <SidebarItem href="/industry/branding" current={location.pathname === '/industry/branding'}>
-                <SettingsIcon />
-                {!sidebarCollapsed && <SidebarLabel>Branding</SidebarLabel>}
-              </SidebarItem>
             </SidebarSection>
           </>
         )}
@@ -443,6 +435,14 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                 <span>Industry Profile</span>
               </DropdownItem>
             )}
+            <DropdownItem href="/industry/compliance">
+              <ReportIcon />
+              <span>Compliance Reports</span>
+            </DropdownItem>
+            <DropdownItem href="/industry/branding">
+              <SettingsIcon />
+              <span>White-Label Branding</span>
+            </DropdownItem>
             <DropdownItem href="/users">
               <UserIcon />
               <span>User Management</span>
