@@ -128,3 +128,4 @@ export type IndustryTemplate = {
   complexity: 'beginner' | 'intermediate' | 'advanced'
 }
 
+

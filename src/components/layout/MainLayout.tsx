@@ -14,6 +14,7 @@ import { Dialog, DialogTitle, DialogBody, DialogActions } from '../catalyst/dial
 import { Button } from '../catalyst/button'
 import { Text } from '../catalyst/text'
 import { Badge } from '../catalyst/badge'
+import { Dropdown, DropdownButton, DropdownMenu, DropdownItem } from '../catalyst/dropdown'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTheme } from '../../hooks/useTheme'
 import { useTenant } from '../../hooks/useTenant'
@@ -163,6 +164,32 @@ function UserIcon() {
     <svg data-slot="icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true">
       <path d="M10 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M17 17a7 7 0 1 0-14 0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function LogoutIcon() {
+  return (
+    <svg data-slot="icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true">
+      <path d="M13 3h4a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-4M8 17l-5-5 5-5M3 12h12" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function CogIcon() {
+  return (
+    <svg data-slot="icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true">
+      <path d="M10 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M16.875 10a6.875 6.875 0 0 1-.11 1.188l-2.657 2.033a.625.625 0 0 0-.15.832l1.25 2.166a.625.625 0 0 1-.54.937H7.064a.625.625 0 0 1-.54-.937l1.25-2.166a.625.625 0 0 0-.15-.832L3.235 11.188A6.875 6.875 0 0 1 5.625 6.25l2.033 2.657a.625.625 0 0 0 .832.15L11.68 7.89a.625.625 0 0 0 .174-.866 6.875 6.875 0 0 1 5.021 2.976Z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function BuildingIcon() {
+  return (
+    <svg data-slot="icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true">
+      <path d="M3 9l9-7 9 7v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M9 17V11h2v6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
@@ -405,22 +432,41 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
             </span>
           )}
         </NavbarItem>
-        <NavbarItem 
-          className="hidden sm:flex items-center gap-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg px-2 py-1"
-          onClick={() => setShowLogoutDialog(true)}
-        >
-          <div className="h-8 w-8 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
-            <UserIcon />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-sm font-medium text-zinc-950 dark:text-white">
-              {user?.name || 'Admin User'}
-            </span>
-            <span className="text-xs text-zinc-500 dark:text-zinc-400">
-              {user?.role || 'Administrator'}
-            </span>
-          </div>
-        </NavbarItem>
+        <Dropdown>
+          <DropdownButton as={NavbarItem} className="hidden sm:flex">
+            <div className="flex items-center gap-2">
+              <div className="h-8 w-8 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+                <UserIcon />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-sm font-medium text-zinc-950 dark:text-white">
+                  {user?.name || 'Admin User'}
+                </span>
+                <span className="text-xs text-zinc-500 dark:text-zinc-400">
+                  {user?.role || 'Administrator'}
+                </span>
+              </div>
+            </div>
+          </DropdownButton>
+          <DropdownMenu className="min-w-64" anchor="bottom end">
+            <DropdownItem href="/profile">
+              <UserIcon />
+              <span>My Profile</span>
+            </DropdownItem>
+            <DropdownItem href="/configuration">
+              <CogIcon />
+              <span>Settings</span>
+            </DropdownItem>
+            <DropdownItem href="/tenant/settings">
+              <BuildingIcon />
+              <span>Organization</span>
+            </DropdownItem>
+            <DropdownItem onClick={() => setShowLogoutDialog(true)}>
+              <LogoutIcon />
+              <span>Logout</span>
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
       </NavbarSection>
     </Navbar>
   )
