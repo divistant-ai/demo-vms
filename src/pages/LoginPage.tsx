@@ -34,7 +34,7 @@ export function LoginPage() {
       email: formData.email,
       name: formData.fullName || 'Demo User',
       role: 'Administrator',
-      company: formData.company || 'VisionCore'
+      company: formData.company || 'Visiant'
     }))
     
     // Set tenant context
@@ -65,10 +65,10 @@ export function LoginPage() {
         {/* Logo and Brand */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl mb-4">
-            <span className="text-white font-bold text-2xl">VC</span>
+            <span className="text-white font-bold text-2xl">V</span>
           </div>
           <Heading className="text-3xl font-bold text-gray-900 dark:text-white">
-            VisionCore
+            Visiant
           </Heading>
           <Text className="text-gray-600 dark:text-gray-300 mt-2">
             Intelligent Vision Platform
@@ -83,8 +83,8 @@ export function LoginPage() {
             </Heading>
             <Text className="text-gray-600 dark:text-gray-300 mt-2">
               {isLogin 
-                ? 'Sign in to your VisionCore account' 
-                : 'Get started with VisionCore platform'
+                ? 'Sign in to your Visiant account' 
+                : 'Get started with Visiant platform'
               }
             </Text>
           </div>
@@ -210,7 +210,7 @@ export function LoginPage() {
         {/* Footer */}
         <div className="text-center mt-8">
           <Text className="text-sm text-gray-500 dark:text-gray-400">
-            © 2024 VisionCore. All rights reserved.
+            © 2024 Visiant. All rights reserved.
           </Text>
         </div>
       </div>

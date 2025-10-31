@@ -63,7 +63,7 @@ const aiModels: Array<AIModel> = [
     rating: 4.8,
     reviews: 342,
     version: 'v2.1.0',
-    provider: 'VisionCore AI',
+    provider: 'Visiant AI',
     lastUpdated: '2 days ago'
   },
   { 
@@ -80,7 +80,7 @@ const aiModels: Array<AIModel> = [
     rating: 4.7,
     reviews: 289,
     version: 'v1.9.2',
-    provider: 'VisionCore AI',
+    provider: 'Visiant AI',
     lastUpdated: '1 week ago'
   },
   { 
@@ -148,7 +148,7 @@ const aiModels: Array<AIModel> = [
     rating: 4.7,
     reviews: 245,
     version: 'v2.0.0',
-    provider: 'VisionCore AI',
+    provider: 'Visiant AI',
     lastUpdated: '4 days ago'
   },
   { 
@@ -199,7 +199,7 @@ const aiModels: Array<AIModel> = [
     rating: 4.8,
     reviews: 298,
     version: 'v2.4.0',
-    provider: 'VisionCore AI',
+    provider: 'Visiant AI',
     lastUpdated: '3 days ago'
   },
   { 

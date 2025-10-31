@@ -5,7 +5,7 @@ test.describe('Authentication Flow', () => {
     await page.goto('/')
     await expect(page).toHaveURL(/.*login/)
     await expect(page.locator('text=Welcome Back')).toBeVisible()
-    await expect(page.getByRole('heading', { name: 'VisionCore' })).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Visiant' })).toBeVisible()
   })
 
   test('should login successfully with valid credentials', async ({ page }) => {

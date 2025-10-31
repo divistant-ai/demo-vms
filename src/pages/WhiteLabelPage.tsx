@@ -44,7 +44,7 @@ const fontOptions = [
 
 export function WhiteLabelPage() {
   const [branding, setBranding] = useState<BrandingConfig>({
-    companyName: 'VisionCore',
+    companyName: 'Visiant',
     tagline: 'AI-Powered Video Management System',
     logo: '',
     favicon: '',
@@ -52,8 +52,8 @@ export function WhiteLabelPage() {
     secondaryColor: '#8B5CF6',
     accentColor: '#06B6D4',
     customDomain: '',
-    supportEmail: 'support@visioncore.ai',
-    copyrightText: '© 2024 VisionCore. All rights reserved.',
+    supportEmail: 'support@visiant.com',
+    copyrightText: '© 2024 Visiant. All rights reserved.',
     loginBackground: 'gradient',
     fontFamily: 'Inter',
     showPoweredBy: true,
@@ -69,7 +69,7 @@ export function WhiteLabelPage() {
   const handleReset = () => {
     if (confirm('Reset all branding to default?')) {
       setBranding({
-        companyName: 'VisionCore',
+        companyName: 'Visiant',
         tagline: 'AI-Powered Video Management System',
         logo: '',
         favicon: '',
@@ -77,8 +77,8 @@ export function WhiteLabelPage() {
         secondaryColor: '#8B5CF6',
         accentColor: '#06B6D4',
         customDomain: '',
-        supportEmail: 'support@visioncore.ai',
-        copyrightText: '© 2024 VisionCore. All rights reserved.',
+        supportEmail: 'support@visiant.com',
+        copyrightText: '© 2024 Visiant. All rights reserved.',
         loginBackground: 'gradient',
         fontFamily: 'Inter',
         showPoweredBy: true,
@@ -345,7 +345,7 @@ export function WhiteLabelPage() {
                   <strong>Name:</strong> vms (or your subdomain)
                 </div>
                 <div>
-                  <strong>Value:</strong> platform.visioncore.ai
+                  <strong>Value:</strong> platform.visiant.com
                 </div>
               </div>
             </div>
@@ -358,7 +358,7 @@ export function WhiteLabelPage() {
                 className="h-4 w-4"
               />
               <div>
-                <Label>Remove "Powered by VisionCore"</Label>
+                <Label>Remove "Powered by Visiant"</Label>
                 <Description>Hide the powered by badge (Enterprise plan only)</Description>
               </div>
             </div>
@@ -420,7 +420,7 @@ export function WhiteLabelPage() {
                 <div className="mt-8 text-center text-xs text-zinc-500">
                   {branding.copyrightText}
                   {branding.showPoweredBy && (
-                    <div className="mt-2">Powered by VisionCore</div>
+                    <div className="mt-2">Powered by Visiant</div>
                   )}
                 </div>
               </div>

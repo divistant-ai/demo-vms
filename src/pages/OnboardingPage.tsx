@@ -83,7 +83,7 @@ export function OnboardingPage() {
         {step === 'welcome' && (
           <div className="max-w-3xl mx-auto text-center">
             <div className="text-6xl mb-6">👋</div>
-            <Heading className="text-4xl mb-4">Welcome to VisionCore VMS</Heading>
+            <Heading className="text-4xl mb-4">Welcome to Visiant</Heading>
             <Text className="text-xl text-gray-600 dark:text-gray-400 mb-8">
               Let's personalize your experience based on your industry and needs
             </Text>

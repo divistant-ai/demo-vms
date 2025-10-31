@@ -453,7 +453,7 @@ export function TenantSettingsPage() {
                     },
                   })}
                 >
-                  <option value="cloud">Cloud Storage (Managed by VisionCore)</option>
+                  <option value="cloud">Cloud Storage (Managed by Visiant)</option>
                   <option value="hybrid">Hybrid Storage (Cloud + Your Storage)</option>
                   <option value="byos">Bring Your Own Storage (BYOS)</option>
                 </Select>
@@ -468,7 +468,7 @@ export function TenantSettingsPage() {
                 <>
                   <Field>
                     <Label>Provider</Label>
-                    <Input value="VisionCore Cloud" disabled className="bg-gray-50 dark:bg-gray-900" />
+                    <Input value="Visiant Cloud" disabled className="bg-gray-50 dark:bg-gray-900" />
                   </Field>
 
                   <Field>

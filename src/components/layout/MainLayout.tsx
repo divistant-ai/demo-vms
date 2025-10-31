@@ -282,7 +282,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
           {!sidebarCollapsed && (
             <div className="flex flex-col min-w-0">
               <span className="text-sm font-semibold text-zinc-950 dark:text-white truncate">
-                {tenant?.name || 'VisionCore'}
+                {tenant?.name || 'Visiant'}
               </span>
               <div className="flex items-center gap-1">
                 <span className="text-xs text-zinc-500 dark:text-zinc-400 truncate">

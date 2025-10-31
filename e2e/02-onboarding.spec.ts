@@ -17,7 +17,7 @@ test.describe('Onboarding Flow', () => {
   })
 
   test('should display welcome step', async ({ page }) => {
-    await expect(page.locator('text=/Welcome to VisionCore/i')).toBeVisible()
+    await expect(page.locator('text=/Welcome to Visiant/i')).toBeVisible()
     await expect(page.locator('text=/Get Started|Next/i')).toBeVisible()
   })
 
