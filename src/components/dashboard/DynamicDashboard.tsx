@@ -5,6 +5,72 @@ import { Badge } from '../catalyst/badge'
 import { getIndustryProfile } from '../../data/industryProfiles'
 import type { IndustryType, DashboardWidget } from '../../types/industry'
 import { useRealtimeData } from '../../hooks/useRealtimeData'
+import { ResponsiveContainer, LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Cell } from 'recharts'
+
+// Generate dummy chart data based on widget type
+function generateChartData(dataSource: string, chartType: string) {
+  const now = new Date()
+  const hours = 24
+  
+  if (chartType === 'pie') {
+    // For pie charts - distribution data
+    if (dataSource === 'heatmap' || dataSource === 'zones') {
+      return [
+        { name: 'Zone A', value: 35 },
+        { name: 'Zone B', value: 25 },
+        { name: 'Zone C', value: 20 },
+        { name: 'Zone D', value: 15 },
+        { name: 'Zone E', value: 5 },
+      ]
+    }
+    return [
+      { name: 'Category 1', value: 400 },
+      { name: 'Category 2', value: 300 },
+      { name: 'Category 3', value: 200 },
+      { name: 'Category 4', value: 100 },
+    ]
+  }
+  
+  // For line/bar charts - time series data
+  const data = []
+  for (let i = hours - 1; i >= 0; i--) {
+    const timestamp = new Date(now.getTime() - i * 60 * 60 * 1000)
+    const hour = timestamp.getHours()
+    
+    // Different patterns based on data source
+    let value = 0
+    if (dataSource === 'traffic' || dataSource === 'people_count') {
+      // Peak hours: 8-10 AM and 5-7 PM
+      if ((hour >= 8 && hour <= 10) || (hour >= 17 && hour <= 19)) {
+        value = 80 + Math.random() * 40
+      } else if (hour >= 11 && hour <= 16) {
+        value = 50 + Math.random() * 30
+      } else {
+        value = 10 + Math.random() * 20
+      }
+    } else if (dataSource === 'queue') {
+      // Queue times higher during peak hours
+      if ((hour >= 12 && hour <= 14) || (hour >= 18 && hour <= 20)) {
+        value = 5 + Math.random() * 3
+      } else {
+        value = 1 + Math.random() * 2
+      }
+    } else if (dataSource === 'incidents' || dataSource === 'alerts') {
+      // Random incidents throughout the day
+      value = Math.random() < 0.3 ? Math.floor(Math.random() * 5) : 0
+    } else {
+      // Default pattern
+      value = 30 + Math.random() * 40
+    }
+    
+    data.push({
+      time: `${hour.toString().padStart(2, '0')}:00`,
+      value: Math.round(value),
+    })
+  }
+  
+  return data
+}
 
 // Widget Components
 function MetricWidget({ widget, data }: { widget: DashboardWidget; data: any }) {
@@ -30,12 +96,72 @@ function MetricWidget({ widget, data }: { widget: DashboardWidget; data: any }) 
 
 function ChartWidget({ widget }: { widget: DashboardWidget }) {
   const chartType = (widget.config.chartType as string) || 'line'
+  const chartData = generateChartData(widget.dataSource, chartType)
+  const COLORS = ['#3B82F6', '#8B5CF6', '#10B981', '#F59E0B', '#EF4444']
+  
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
       <Heading level={3} className="mb-4">{widget.title}</Heading>
-      <div className="h-64 flex items-center justify-center bg-gray-50 dark:bg-gray-900 rounded-lg">
-        <Text className="text-gray-400">Chart: {chartType}</Text>
-      </div>
+      <ResponsiveContainer width="100%" height={280}>
+        {chartType === 'line' ? (
+          <LineChart data={chartData}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+            <XAxis dataKey="time" stroke="#9CA3AF" />
+            <YAxis stroke="#9CA3AF" />
+            <Tooltip 
+              contentStyle={{ backgroundColor: '#1F2937', border: '1px solid #374151', borderRadius: '8px' }}
+              labelStyle={{ color: '#F3F4F6' }}
+            />
+            <Legend />
+            <Line 
+              type="monotone" 
+              dataKey="value" 
+              stroke="#3B82F6" 
+              strokeWidth={2}
+              dot={{ fill: '#3B82F6', r: 4 }}
+              name={widget.title}
+            />
+          </LineChart>
+        ) : chartType === 'bar' ? (
+          <BarChart data={chartData}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+            <XAxis dataKey="time" stroke="#9CA3AF" />
+            <YAxis stroke="#9CA3AF" />
+            <Tooltip 
+              contentStyle={{ backgroundColor: '#1F2937', border: '1px solid #374151', borderRadius: '8px' }}
+              labelStyle={{ color: '#F3F4F6' }}
+            />
+            <Legend />
+            <Bar dataKey="value" fill="#8B5CF6" name={widget.title} />
+          </BarChart>
+        ) : chartType === 'pie' ? (
+          <PieChart>
+            <Pie
+              data={chartData}
+              cx="50%"
+              cy="50%"
+              labelLine={false}
+              label={(entry: any) => `${entry.name}: ${((entry.percent || 0) * 100).toFixed(0)}%`}
+              outerRadius={100}
+              fill="#8884d8"
+              dataKey="value"
+            >
+              {chartData.map((_entry, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+            <Tooltip />
+          </PieChart>
+        ) : (
+          <LineChart data={chartData}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+            <XAxis dataKey="time" stroke="#9CA3AF" />
+            <YAxis stroke="#9CA3AF" />
+            <Tooltip />
+            <Line type="monotone" dataKey="value" stroke="#3B82F6" strokeWidth={2} />
+          </LineChart>
+        )}
+      </ResponsiveContainer>
     </div>
   )
 }
