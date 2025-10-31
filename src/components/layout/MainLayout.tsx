@@ -299,9 +299,8 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
         </div>
       </SidebarHeader>
       <SidebarBody>
-        {/* Overview Section */}
+        {/* Dashboard - Combined with Overview */}
         <SidebarSection>
-          {!sidebarCollapsed && <SidebarHeading>Overview</SidebarHeading>}
           <SidebarItem href="/" current={location.pathname === '/'}>
             <DashboardIcon />
             {!sidebarCollapsed && <SidebarLabel>Dashboard</SidebarLabel>}
@@ -310,7 +309,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
 
         {!sidebarCollapsed && <SidebarDivider />}
 
-        {/* Monitoring Section */}
+        {/* Monitoring */}
         <SidebarSection>
           {!sidebarCollapsed && <SidebarHeading>Monitoring</SidebarHeading>}
           <SidebarItem href="/cameras" current={location.pathname.startsWith('/cameras')}>
@@ -321,11 +320,19 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
             <MapIcon />
             {!sidebarCollapsed && <SidebarLabel>Map View</SidebarLabel>}
           </SidebarItem>
+          <SidebarItem href="/alerts" current={location.pathname.startsWith('/alerts')}>
+            <AlertIcon />
+            {!sidebarCollapsed && <SidebarLabel>Alerts</SidebarLabel>}
+          </SidebarItem>
+          <SidebarItem href="/incidents" current={location.pathname.startsWith('/incidents')}>
+            <IncidentIcon />
+            {!sidebarCollapsed && <SidebarLabel>Incidents</SidebarLabel>}
+          </SidebarItem>
         </SidebarSection>
 
         {!sidebarCollapsed && <SidebarDivider />}
 
-        {/* Analytics Section */}
+        {/* Analytics & Reports */}
         <SidebarSection>
           {!sidebarCollapsed && <SidebarHeading>Analytics</SidebarHeading>}
           <SidebarItem href="/analytics" current={location.pathname.startsWith('/analytics')}>
@@ -344,24 +351,9 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
 
         {!sidebarCollapsed && <SidebarDivider />}
 
-        {/* Alerts & Incidents Section */}
+        {/* AI & Automation */}
         <SidebarSection>
-          {!sidebarCollapsed && <SidebarHeading>Alerts</SidebarHeading>}
-          <SidebarItem href="/alerts" current={location.pathname.startsWith('/alerts')}>
-            <AlertIcon />
-            {!sidebarCollapsed && <SidebarLabel>Alerts</SidebarLabel>}
-          </SidebarItem>
-          <SidebarItem href="/incidents" current={location.pathname.startsWith('/incidents')}>
-            <IncidentIcon />
-            {!sidebarCollapsed && <SidebarLabel>Incidents</SidebarLabel>}
-          </SidebarItem>
-        </SidebarSection>
-
-        {!sidebarCollapsed && <SidebarDivider />}
-
-        {/* AI & Automation Section */}
-        <SidebarSection>
-          {!sidebarCollapsed && <SidebarHeading>AI & Automation</SidebarHeading>}
+          {!sidebarCollapsed && <SidebarHeading>Automation</SidebarHeading>}
           <SidebarItem href="/models" current={location.pathname.startsWith('/models')}>
             <AIIcon />
             {!sidebarCollapsed && <SidebarLabel>AI Models</SidebarLabel>}
@@ -372,27 +364,35 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
           </SidebarItem>
         </SidebarSection>
 
-        {/* Industry Features (Conditional) */}
+        {/* Extensions - Renamed from Industry */}
         {tenant?.metadata?.industry && (
           <>
             {!sidebarCollapsed && <SidebarDivider />}
             <SidebarSection>
-              {!sidebarCollapsed && <SidebarHeading>Industry</SidebarHeading>}
+              {!sidebarCollapsed && <SidebarHeading>Extensions</SidebarHeading>}
               <SidebarItem href="/industry/templates" current={location.pathname === '/industry/templates'}>
                 <IndustryIcon />
                 {!sidebarCollapsed && <SidebarLabel>Templates</SidebarLabel>}
+              </SidebarItem>
+              <SidebarItem href="/industry/models" current={location.pathname === '/industry/models'}>
+                <AIIcon />
+                {!sidebarCollapsed && <SidebarLabel>Marketplace</SidebarLabel>}
+              </SidebarItem>
+              <SidebarItem href="/industry/integrations" current={location.pathname === '/industry/integrations'}>
+                <SettingsIcon />
+                {!sidebarCollapsed && <SidebarLabel>Integrations</SidebarLabel>}
               </SidebarItem>
               <SidebarItem href="/industry/benchmarks" current={location.pathname === '/industry/benchmarks'}>
                 <ChartIcon />
                 {!sidebarCollapsed && <SidebarLabel>Benchmarks</SidebarLabel>}
               </SidebarItem>
-              <SidebarItem href="/industry/models" current={location.pathname === '/industry/models'}>
-                <AIIcon />
-                {!sidebarCollapsed && <SidebarLabel>AI Marketplace</SidebarLabel>}
+              <SidebarItem href="/industry/compliance" current={location.pathname === '/industry/compliance'}>
+                <ReportIcon />
+                {!sidebarCollapsed && <SidebarLabel>Compliance</SidebarLabel>}
               </SidebarItem>
-              <SidebarItem href="/industry/integrations" current={location.pathname === '/industry/integrations'}>
+              <SidebarItem href="/industry/branding" current={location.pathname === '/industry/branding'}>
                 <SettingsIcon />
-                {!sidebarCollapsed && <SidebarLabel>Integrations</SidebarLabel>}
+                {!sidebarCollapsed && <SidebarLabel>Branding</SidebarLabel>}
               </SidebarItem>
             </SidebarSection>
           </>

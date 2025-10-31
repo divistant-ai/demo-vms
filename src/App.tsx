@@ -7,6 +7,7 @@ import { MainLayout } from './components/layout/MainLayout'
 import { LoadingState } from './utils/loadingStates'
 
 // Eager load critical pages
+import { LandingPage } from './pages/LandingPage'
 import { LoginPage } from './pages/LoginPage'
 import { DashboardPage } from './pages/DashboardPage'
 import { ThemeTestPage } from './pages/ThemeTestPage'
@@ -66,6 +67,7 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 function AppRoutes() {
   return (
     <Routes>
+      <Route path="/landing" element={<LandingPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/onboarding" element={<OnboardingPage />} />
       <Route path="/theme-test" element={<ThemeTestPage />} />
